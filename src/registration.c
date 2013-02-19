@@ -324,9 +324,10 @@ void freenect_camera_to_world(freenect_device* dev, int cx, int cy, int wz, doub
 	// However, the 640x480 image is produced by cropping the 1280x1024 image
 	// to 1280x960 and then scaling by .5, so aspect ratio is maintained, and
 	// we should simply multiply by two in each dimension.
-	double factor = 2 * ref_pix_size * wz / ref_distance;
-	*wx = (double)(cx - DEPTH_X_RES/2) * factor;
-	*wy = (double)(cy - DEPTH_Y_RES/2) * factor;
+	double xfactor = 2 * ref_pix_size * wz / ref_distance;
+	double yfactor = (1024/480) * ref_pix_size * wz / ref_distance;
+	*wx = (double)(cx - DEPTH_X_RES/2) * xfactor;
+	*wy = (double)(cy - DEPTH_Y_RES/2) * yfactor;
 }
 
 /// Allocate and fill registration tables
